@@ -1,0 +1,9 @@
+#articles {
+    display: inline-block;
+    overflow: auto;
+    width: 60%;
+  }
+  #notes {
+    float: right;
+    width: 30%;
+  }
