@@ -1,15 +1,3 @@
-// Configure middleware
-
-// Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Make public a static folder
-app.use(express.static("public"));
-
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
-
-
 var express = require("express");
 var mongoose = require("mongoose");
 var axios = require("axios");
@@ -25,12 +13,12 @@ var app = express();
 // Parse application body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
 
-
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/spaceArticles", { useNewUrlParser: true });
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
