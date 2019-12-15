@@ -74,6 +74,38 @@ router.get("/", function (req, res) {
     });
 });
 
+router.get("/saved", function (req, res) {
+    db.Article.find({saved: true}).then(function (data) {
+        var hbsObject = {
+            articles: data
+        };
+        console.log(hbsObject);
+        res.render("saved", hbsObject);
+    });
+});
+
+router.put("/article/saved/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true },{
+        new: true})
+        .then(function (articles) {
+            res.json(articles);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
+});
+
+router.put("/article/unsaved/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false },{
+        new: true})
+        .then(function (articles) {
+            res.json(articles);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...

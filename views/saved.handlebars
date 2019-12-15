@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand font-weight-bold" href="/">Home-Space.com-Scrape</a>
+  <a class="navbar-brand font-weight-bold" href="/">Home-Space.com Scrape</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,19 +15,19 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
     <h1 class="display-4 font-weight-bold">Science & Tech News From Space.com!</h1>
+    <br>
+    <h5>Your Saved Articles</h5>
   </div>
 </div>
 
 <div id="article">
 <ul>
   {{#each articles}}
-      {{#unless saved}}
       <a href="{{link}}" target="_blank"><h3>{{title}}</h3></a>
       <h4>{{summary}}</h4>
-      <button id="save-article" class="btn btn-primary btn-lg" type="click" data-id="{{_id}}">Save Article</button>
-      <button id="add-note" type="submit" data-id="{{_id}}" class="btn btn-secondary btn-lg">Add Note</button>
+      <button id="unsave-article" class="btn btn-primary btn-lg" type="save" data-id="{{_id}}">Unsave Article</button>
+      <button id="add-note" type="submit" data-id="{{_id}}" class="btn btn-secondary btn-lg">Add/View Note</button>
       <hr>
-       {{/unless}}
   {{/each}}
 </ul>
 </div>
