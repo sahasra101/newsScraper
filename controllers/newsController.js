@@ -67,9 +67,9 @@ router.delete("/articles/", function (req, res) {
         });
 });
 
-router.post("/articles/delnote/:id", function (req, res) {
-    db.Article.findOneAndUpdate({ _id: req.params.id }, { note: "" },{
-        new: true})
+router.delete("/articles/delnote/:id", function (req, res) {
+    // console.log(req.params.id);
+    db.Note.deleteOne({ _id: req.params.id })
         .then(function (articles) {
             res.json(articles);
         })

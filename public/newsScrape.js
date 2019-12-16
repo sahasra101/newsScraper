@@ -80,7 +80,7 @@ $(document).on("click", "#note-modal", function (event) {
             // If there's a note in the article
             if (data.note) {
                 // Place the body of the note in the modal body input
-                $("#notes").append("<h4>Your Notes: "+data.note.note+"</h4>");
+                $("#notes").append("<h4>Your Notes: "+data.note.note+"</h4> <button type='button' id='delete-note' data-id='"+data.note._id+"' class='btn btn-danger'>Delete Note</button>");
             }
         });
 });
@@ -115,11 +115,12 @@ $(document).on("click", "#add-note", function () {
     location.reload();
 });
 
-$("#delete-note").on("click", function (event) {
-    var delNoteId = $(this).attr(data-id);
+$(document).on("click", "#delete-note", function () {
+    var delNoteId = $(this).attr("data-id");
+    console.log("id of note to be deleted: "+delNoteId);
     // Send the DELETE request.
     $.ajax("/articles/delnote/" + delNoteId, {
-        type: "POST"
+        type: "DELETE"
     }).then(
         function () {
             location.reload();
