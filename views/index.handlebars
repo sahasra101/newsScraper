@@ -20,7 +20,7 @@
     <h3>Save An Article or Attach Notes To An Article</h3>
     <br>
     <br>
-        <button id="delete-scrape" class="btn btn-danger btn-sm" type="click">Clear Scrape</button>
+    <button id="delete-scrape" class="btn btn-danger btn-sm" type="click">Clear Scrape</button>
 
   </div>
 </div>
@@ -50,11 +50,11 @@
             </button>
           </div>
           <div id="notes" class="modal-body">
-            <div class="form-group">
-              <label for="articleNote">Notes for Article</label>
-              <input type="text" class="form-control" id="noteInput" placeholder="Type note here">
-            </div>
-            {{!-- <p>Modal body text goes here.</p> --}}
+            {{!-- <p></p>Notes get appended here.</p> --}}
+          </div>
+          <div class="form-group">
+            <label for="articleNote">Notes for Article</label>
+            <input type="text" class="form-control" id="noteInput" placeholder="Type note here">
           </div>
           <div class="modal-footer">
             <button type="button" id="add-note" data-id="{{_id}}" class="btn btn-primary">Save Note</button>
