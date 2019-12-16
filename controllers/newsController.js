@@ -19,14 +19,13 @@ router.get("/scrape", function (req, res) {
 
             // Add the text and href of every link, and save them as properties of the result object
             var title = $(element).children().find("h3").text();
-            console.log(title);
+            // console.log(title);
             var link = $(element).find("a").attr("href");
-            console.log(link);
+            // console.log(link);
             var imageLink = $(element).find("figure.article-lead-image-wrap").attr("data-original");
-            console.log(imageLink);
-
+            // console.log(imageLink);
             var summary = $(element).find("p.synopsis").text().replace(/\s\s+/g, '').replace("\n", '');
-            console.log(summary);
+            // console.log(summary);
 
             result = {
                 title: title,
@@ -41,7 +40,7 @@ router.get("/scrape", function (req, res) {
             db.Article.create(result)
                 .then(function (dbArticle) {
                     // View the added result in the console
-                    console.log(dbArticle);
+                    // console.log(dbArticle);
                 })
                 .catch(function (err) {
                     // If an error occurred, log it
@@ -56,9 +55,21 @@ router.get("/scrape", function (req, res) {
     });
 });
 
+// Route for clearing the scrape
 router.delete("/articles/", function (req, res) {
     // grabs all of the articles
     db.Article.deleteMany()
+        .then(function (articles) {
+            res.json(articles);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
+});
+
+router.post("/articles/delnote/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { note: "" },{
+        new: true})
         .then(function (articles) {
             res.json(articles);
         })
@@ -86,7 +97,7 @@ router.get("/", function (req, res) {
         var hbsObject = {
             articles: data
         };
-        console.log(hbsObject);
+        // console.log(hbsObject);
         res.render("index", hbsObject);
     });
 });
@@ -96,7 +107,7 @@ router.get("/saved", function (req, res) {
         var hbsObject = {
             articles: data
         };
-        console.log(hbsObject);
+        // console.log(hbsObject);
         res.render("saved", hbsObject);
     });
 });
@@ -128,7 +139,7 @@ router.get("/articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Article.findOne({ _id: req.params.id })
         // ..and populate all of the notes associated with it
-        .populate("Note")
+        .populate("note")
         .then(function (dbArticle) {
             // If we were able to successfully find an Article with the given id, send it back to the client
             res.json(dbArticle);

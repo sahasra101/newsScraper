@@ -63,12 +63,11 @@ $(document).ready(function () {
 //     }
 // });
 
-
-$(document).on("click", "#note-modal", function () {
-    // Empty the notes from the note section
-    $("#noteInput").empty();
-    // Save the id from the p tag
+$(document).on("click", "#note-modal", function (event) {
     var thisId = $(this).attr("data-id");
+    $("#noteInput").val("");
+    $("#notes").empty();
+    console.log(`id of article to get note: ${thisId}`);
 
     // Now make an ajax call for the Article
     $.ajax({
@@ -79,9 +78,9 @@ $(document).on("click", "#note-modal", function () {
         .then(function (data) {
             console.log(data);
             // If there's a note in the article
-            if (data.Note.note) {
-                // Place the title of the note in the title input
-                $("#notes").val(data.Note.note);
+            if (data.note) {
+                // Place the body of the note in the modal body input
+                $("#notes").append("<h4>Your Notes: "+data.note.note+"</h4>");
             }
         });
 });
@@ -98,7 +97,7 @@ $(document).on("click", "#add-note", function () {
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
         method: "POST",
-        url: "/articles/" + thisId,
+        url: "/articles/" + noteId,
         data: {
             // Value taken from note text area
             note: body
@@ -109,43 +108,20 @@ $(document).on("click", "#add-note", function () {
             // Log the response
             console.log(data);
             // Empty the notes section
-            $("#noteInput").empty();
+            // $("#noteInput").empty();
         });
-
     // Also, remove the values entered in the input and textarea for note entry
     $("#noteInput").val("");
+    location.reload();
 });
 
-//     // Run a POST request to add the note, using what's entered in the inputs
-//     $.ajax({
-//         method: "POST",
-//         url: "/notes/" + noteId,
-//         data: {
-//             id: noteId,
-//             note: body
-//         }
-//     })
-//         // With that done
-//         .then(function (data) {
-//             // Log the response
-//             console.log(data);
-//             // Empty the notes section
-//             $("#noteInput").empty();
-//         });
-
-//     // Also, remove the values entered in the input and textarea for note entry
-//     $("#noteInput").text("");
-// });
-
 $("#delete-note").on("click", function (event) {
-    var delNoteId = $(this).attr(data - id);
+    var delNoteId = $(this).attr(data-id);
     // Send the DELETE request.
-    $.ajax("/notes/del/" + id, {
-        type: "DELETE"
+    $.ajax("/articles/delnote/" + delNoteId, {
+        type: "POST"
     }).then(
         function () {
-            console.log("deleted note for id: ", id);
-            // Reload the page to get the updated list
             location.reload();
         }
     );
