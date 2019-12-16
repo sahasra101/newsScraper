@@ -22,12 +22,16 @@ router.get("/scrape", function (req, res) {
             console.log(title);
             var link = $(element).find("a").attr("href");
             console.log(link);
+            var imageLink = $(element).find("figure.article-lead-image-wrap").attr("data-original");
+            console.log(imageLink);
+
             var summary = $(element).find("p.synopsis").text().replace(/\s\s+/g, '').replace("\n", '');
             console.log(summary);
 
             result = {
                 title: title,
                 link: link,
+                image: imageLink,
                 summary: summary
             };
 
