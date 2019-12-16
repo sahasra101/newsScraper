@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <a class="navbar-brand font-weight-bold" href="/">Home-Space.com-Scrape</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -15,25 +16,55 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="text-white container text-center">
     <h1 class="display-4 font-weight-bold">Science & Tech News From Space.com!</h1>
-      <br>
+    <br>
     <h3>Save An Article or Attach Notes To An Article</h3>
+    <br>
+    <br>
+        <button id="delete-scrape" class="btn btn-danger btn-sm" type="click">Clear Scrape</button>
 
   </div>
 </div>
 
 <div id="article">
-<ul>
-  {{#each articles}}
-      {{#unless saved}}
-      <img src="{{image}}" class="article-image" "alt="article picture">
-      <a href="{{link}}" target="_blank"><h3>{{title}}</h3></a>
-      <h4>{{summary}}</h4>
-      <button id="save-article" class="btn btn-primary btn-lg" type="click" data-id="{{_id}}">Save Article</button>
-      <button id="add-note" type="submit" data-id="{{_id}}" class="btn btn-secondary btn-lg">Add Note</button>
-      <hr>
-       {{/unless}}
-  {{/each}}
-</ul>
-</div>
+  <ul>
+    {{#each articles}}
+    {{#unless saved}}
+    <img src="{{image}}" class="article-image" "alt=" article picture">
+    <a href="{{link}}" target="_blank">
+      <h3>{{title}}</h3>
+    </a>
+    <h4>{{summary}}</h4>
+    <button id="save-article" class="btn btn-primary btn-lg" type="click" data-id="{{_id}}">Save Article</button>
+    <button id="note-modal" type="submit" class="btn btn-secondary btn-lg" data-toggle="modal"
+      data-target="#noteModalCenter">Add/View Note</button>
+    <hr>
+    {{/unless}}
 
-<div id="notes"></div>
+    <div class="modal" id="noteModalCenter" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="notes" class="modal-body">
+            <div class="form-group">
+              <label for="articleNote">Notes for Article</label>
+              <input type="text" class="form-control" id="noteInput" placeholder="Type note here">
+            </div>
+            {{!-- <p>Modal body text goes here.</p> --}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-note" data-id="{{_id}}" class="btn btn-primary">Save Note</button>
+            <button type="button" id="delete-note" data-id="{{_id}}" class="btn btn-danger">Delete Note</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/each}}
+  </ul>
+</div>
